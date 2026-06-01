@@ -48,10 +48,7 @@ SourceCheck uses explicit, conservative statuses:
 Run the deterministic verifier against the synthetic fixtures:
 
 ```powershell
-python scripts/sourcecheck_verify.py fixtures/supported.json
-python scripts/sourcecheck_verify.py fixtures/unsupported.json
-python scripts/sourcecheck_verify.py fixtures/uncertain.json
-python scripts/sourcecheck_verify.py fixtures/source_mismatch.json
+py -3 scripts/sourcecheck_verify.py fixtures/supported.json fixtures/unsupported.json fixtures/uncertain.json fixtures/source_mismatch.json
 ```
 
 Run the public safety verifier:
@@ -59,6 +56,9 @@ Run the public safety verifier:
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/verify-public-safety.ps1
 ```
+
+On systems where `python3` is the configured command, replace `py -3` with
+`python3`.
 
 ## Skill Install Path
 
