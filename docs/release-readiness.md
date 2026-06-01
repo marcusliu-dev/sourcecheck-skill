@@ -32,6 +32,8 @@ The current release claim is narrow and explicit:
   `https://github.com/marcusliu-dev/sourcecheck-skill`;
 - the repository contains an installable SourceCheck skill package;
 - the repository contains a deterministic verifier for synthetic fixtures;
+- the verifier produces the primary verdicts `SUPPORTED`, `UNSUPPORTED`, and
+  `UNCERTAIN`, with narrower reason codes for evidence handling;
 - the public examples are synthetic-only;
 - the documentation states the no-truth and no-expert-review limits;
 - the local public-safety verifier checks required files, links, fixture

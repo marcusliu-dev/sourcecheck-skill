@@ -16,7 +16,8 @@
       "requires_source_id": "src-lab-summary",
       "requires_expert_review": true,
       "support_phrases": ["reliable enough for production use"],
-      "expected_status": "NEEDS_EXPERT_REVIEW"
+      "expected_verdict": "UNCERTAIN",
+      "expected_reason_code": "NEEDS_EXPERT_REVIEW"
     }
   ]
 }

@@ -20,7 +20,8 @@
       "citations": ["src-cafe"],
       "requires_source_id": "src-parking",
       "support_phrases": ["Parking is available", "north building"],
-      "expected_status": "SOURCE_MISMATCH"
+      "expected_verdict": "UNSUPPORTED",
+      "expected_reason_code": "SOURCE_MISMATCH"
     }
   ]
 }

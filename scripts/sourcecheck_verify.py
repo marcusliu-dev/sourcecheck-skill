@@ -9,7 +9,13 @@ import sys
 from pathlib import Path
 
 
-VALID_STATUSES = {
+VALID_VERDICTS = {
+    "SUPPORTED",
+    "UNSUPPORTED",
+    "UNCERTAIN",
+}
+
+VALID_REASON_CODES = {
     "SUPPORTED",
     "PARTIAL",
     "UNSUPPORTED",
@@ -33,20 +39,20 @@ def source_map(fixture: dict) -> dict[str, dict]:
     return {source["id"]: source for source in fixture.get("sources", [])}
 
 
-def classify_claim(claim: dict, sources: dict[str, dict]) -> tuple[str, list[str]]:
+def classify_claim(claim: dict, sources: dict[str, dict]) -> tuple[str, str, list[str]]:
     citations = claim.get("citations", [])
     notes: list[str] = []
 
     if not citations:
-        return "UNRETRIEVABLE", ["claim has no citation ids"]
+        return "UNCERTAIN", "UNRETRIEVABLE", ["claim has no citation ids"]
 
     missing = [source_id for source_id in citations if source_id not in sources]
     if missing:
-        return "UNRETRIEVABLE", [f"missing source ids: {', '.join(missing)}"]
+        return "UNCERTAIN", "UNRETRIEVABLE", [f"missing source ids: {', '.join(missing)}"]
 
     required_source = claim.get("requires_source_id")
     if required_source and required_source not in citations:
-        return "SOURCE_MISMATCH", [
+        return "UNSUPPORTED", "SOURCE_MISMATCH", [
             f"claim requires source '{required_source}' but cites {', '.join(citations)}"
         ]
 
@@ -55,33 +61,33 @@ def classify_claim(claim: dict, sources: dict[str, dict]) -> tuple[str, list[str
     )
 
     if claim.get("requires_expert_review"):
-        return "NEEDS_EXPERT_REVIEW", ["claim is marked as requiring expert review"]
+        return "UNCERTAIN", "NEEDS_EXPERT_REVIEW", ["claim is marked as requiring expert review"]
 
     for phrase in claim.get("misrepresented_if_source_contains", []):
         if normalize(phrase) in cited_text:
-            return "MISREPRESENTED", [f"source contains limiting phrase: {phrase}"]
+            return "UNSUPPORTED", "MISREPRESENTED", [f"source contains limiting phrase: {phrase}"]
 
     for phrase in claim.get("unsupported_if_source_contains", []):
         if normalize(phrase) in cited_text:
-            return "UNSUPPORTED", [f"source contains contradiction: {phrase}"]
+            return "UNSUPPORTED", "UNSUPPORTED", [f"source contains contradiction: {phrase}"]
 
     required_phrases = claim.get("support_phrases", [])
     if not required_phrases:
-        return "NEEDS_EXPERT_REVIEW", ["claim has no deterministic support phrases"]
+        return "UNCERTAIN", "NEEDS_EXPERT_REVIEW", ["claim has no deterministic support phrases"]
 
     found = [phrase for phrase in required_phrases if normalize(phrase) in cited_text]
     missing_phrases = [phrase for phrase in required_phrases if phrase not in found]
 
     if len(found) == len(required_phrases):
         notes.extend(f"found support phrase: {phrase}" for phrase in found)
-        return "SUPPORTED", notes
+        return "SUPPORTED", "SUPPORTED", notes
 
     if found:
         notes.extend(f"found support phrase: {phrase}" for phrase in found)
         notes.extend(f"missing support phrase: {phrase}" for phrase in missing_phrases)
-        return "PARTIAL", notes
+        return "UNCERTAIN", "PARTIAL", notes
 
-    return "UNSUPPORTED", [
+    return "UNSUPPORTED", "UNSUPPORTED", [
         f"missing support phrase: {phrase}" for phrase in required_phrases
     ]
 
@@ -93,15 +99,23 @@ def verify_fixture(path: Path) -> tuple[bool, dict]:
     ok = True
 
     for claim in fixture.get("claims", []):
-        actual, notes = classify_claim(claim, sources)
-        expected = claim.get("expected_status")
-        claim_ok = expected in VALID_STATUSES and actual == expected
+        actual_verdict, actual_reason_code, notes = classify_claim(claim, sources)
+        expected_verdict = claim.get("expected_verdict", claim.get("expected_status"))
+        expected_reason_code = claim.get("expected_reason_code", expected_verdict)
+        claim_ok = (
+            expected_verdict in VALID_VERDICTS
+            and expected_reason_code in VALID_REASON_CODES
+            and actual_verdict == expected_verdict
+            and actual_reason_code == expected_reason_code
+        )
         ok = ok and claim_ok
         results.append(
             {
                 "claim_id": claim.get("id"),
-                "expected_status": expected,
-                "actual_status": actual,
+                "expected_verdict": expected_verdict,
+                "actual_verdict": actual_verdict,
+                "expected_reason_code": expected_reason_code,
+                "actual_reason_code": actual_reason_code,
                 "ok": claim_ok,
                 "notes": notes,
             }
@@ -137,9 +151,13 @@ def main() -> int:
                     + " "
                     + str(result["claim_id"])
                     + ": expected "
-                    + str(result["expected_status"])
+                    + str(result["expected_verdict"])
+                    + "/"
+                    + str(result["expected_reason_code"])
                     + ", actual "
-                    + str(result["actual_status"])
+                    + str(result["actual_verdict"])
+                    + "/"
+                    + str(result["actual_reason_code"])
                 )
 
     return 0 if all_ok else 1

@@ -9,12 +9,9 @@ source text or citation evidence supplied to the agent.
 
 It can surface:
 
-- unsupported claims;
-- partial support;
-- source mismatch;
-- missing or unretrievable source text;
-- source overstatement or misrepresentation;
-- claims that need expert review.
+- `SUPPORTED`, `UNSUPPORTED`, or `UNCERTAIN` verdicts;
+- reason codes for partial support, source mismatch, missing source text,
+  source overstatement, misrepresentation, and claims that need expert review.
 
 ## What It Does Not Prove
 

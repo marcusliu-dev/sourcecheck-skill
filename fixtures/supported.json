@@ -15,7 +15,8 @@
       "citations": ["src-hours"],
       "requires_source_id": "src-hours",
       "support_phrases": ["closes at 6 p.m.", "On Fridays"],
-      "expected_status": "SUPPORTED"
+      "expected_verdict": "SUPPORTED",
+      "expected_reason_code": "SUPPORTED"
     }
   ]
 }

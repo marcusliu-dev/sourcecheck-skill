@@ -20,10 +20,10 @@ material.
 
 ## SourceCheck Result
 
-| claim_id | status | evidence | next action |
-| --- | --- | --- | --- |
-| `claim-supported-001` | `SUPPORTED` | The cited source says the library closes at 6 p.m. on Fridays. | Keep the claim. |
-| `claim-unsupported-001` | `UNSUPPORTED` | The cited source says the notice does not mention lunch. | Remove or rewrite the claim. |
+| claim_id | verdict | reason_code | evidence | next action |
+| --- | --- | --- | --- | --- |
+| `claim-supported-001` | `SUPPORTED` | `SUPPORTED` | The cited source says the library closes at 6 p.m. on Fridays. | Keep the claim. |
+| `claim-unsupported-001` | `UNSUPPORTED` | `UNSUPPORTED` | The cited source says the notice does not mention lunch. | Remove or rewrite the claim. |
 
 ## Residual Limits
 

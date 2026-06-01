@@ -13,7 +13,7 @@ trajectory_requirements:
   - Identifies the claim and citation id.
   - Checks whether the cited source is the right source for the claim.
   - Separates source mismatch from unsupported content.
-  - Returns SOURCE_MISMATCH for Claim A.
+  - Returns UNSUPPORTED with reason_code SOURCE_MISMATCH for Claim A.
 allowed_verification_examples:
   - Compare the citation id with the source that actually contains the support phrase.
   - Explain that the cited cafe source does not support the parking claim.

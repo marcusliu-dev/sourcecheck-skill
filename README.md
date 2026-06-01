@@ -20,7 +20,7 @@ source text and return a bounded status.
 - an installable [`sourcecheck` skill](skills/sourcecheck/SKILL.md);
 - a deterministic local verifier in
   [`scripts/sourcecheck_verify.py`](scripts/sourcecheck_verify.py);
-- synthetic claim/source fixtures in [`fixtures/](fixtures/);
+- synthetic claim/source fixtures in [`fixtures/`](fixtures/);
 - public eval fixtures under [`evals/sourcecheck/`](evals/sourcecheck/);
 - a worked synthetic example in
   [`examples/sourcecheck-claim-ledger.md`](examples/sourcecheck-claim-ledger.md);
@@ -28,20 +28,27 @@ source text and return a bounded status.
 - a repository safety verifier in
   [`scripts/verify-public-safety.ps1`](scripts/verify-public-safety.ps1).
 
-## Claim Statuses
+## Claim Verdicts
 
-SourceCheck uses explicit, conservative statuses:
+SourceCheck uses three primary verdicts:
 
 - `SUPPORTED`: the cited source text supports the claim.
+- `UNSUPPORTED`: the cited source text contradicts, misrepresents, mismatches,
+  or does not support the claim.
+- `UNCERTAIN`: the cited source text is missing, partial, ambiguous, or requires
+  expert judgment beyond this verifier.
+
+It can also attach a `reason_code` such as:
+
 - `PARTIAL`: the cited source text supports only part of the claim.
-- `UNSUPPORTED`: the cited source text contradicts or does not support the
-  claim.
 - `MISREPRESENTED`: the draft overstates, reverses, or distorts the cited
   source.
 - `SOURCE_MISMATCH`: the citation points to the wrong source for the claim.
 - `UNRETRIEVABLE`: the cited source text is missing or unavailable.
 - `NEEDS_EXPERT_REVIEW`: the source may be relevant, but the claim requires
   expert judgment beyond this verifier.
+- `UNSUPPORTED`: the cited source text contradicts or does not support the
+  claim.
 
 ## Quick Start
 
@@ -74,7 +81,8 @@ needs to be checked.
 
 ## Design Principles
 
-- Check support against provided sources, not the whole world.
+- Classify claims as `SUPPORTED`, `UNSUPPORTED`, or `UNCERTAIN` against
+  provided sources, not the whole world.
 - Fail closed when source text is missing.
 - Keep evidence and claim status separate from writing style.
 - Use synthetic public examples unless rights and privacy are verified.

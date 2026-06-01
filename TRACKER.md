@@ -25,6 +25,7 @@ production runtime safety.
 - public URL: `https://github.com/marcusliu-dev/sourcecheck-skill`
 - installable skill path: `skills/sourcecheck`
 - examples: synthetic-only
+- primary verdicts: `SUPPORTED`, `UNSUPPORTED`, `UNCERTAIN`
 
 ## Current Surface
 

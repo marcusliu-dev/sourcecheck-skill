@@ -16,7 +16,8 @@
       "requires_source_id": "src-workshop",
       "support_phrases": ["free lunch", "every attendee"],
       "unsupported_if_source_contains": ["does not mention lunch"],
-      "expected_status": "UNSUPPORTED"
+      "expected_verdict": "UNSUPPORTED",
+      "expected_reason_code": "UNSUPPORTED"
     }
   ]
 }

@@ -37,11 +37,19 @@ Stop or ask for more evidence when:
   supported by the provided source;
 - the task requires private or restricted sources that have not been supplied.
 
-## Status Labels
+## Verdicts And Reason Codes
 
-Use one of these labels for each claim:
+Use one primary verdict for each claim:
 
-| label | meaning |
+| verdict | meaning |
+| --- | --- |
+| `SUPPORTED` | The cited source text supports the claim. |
+| `UNSUPPORTED` | The cited source text contradicts, misrepresents, mismatches, or does not support the claim. |
+| `UNCERTAIN` | The cited source text is missing, partial, ambiguous, or requires expert judgment beyond this verifier. |
+
+Attach a narrower `reason_code` when helpful:
+
+| reason_code | meaning |
 | --- | --- |
 | `SUPPORTED` | The cited source text supports the claim. |
 | `PARTIAL` | The cited source text supports only part of the claim. |
@@ -66,7 +74,7 @@ Use one of these labels for each claim:
    - Separate support, contradiction, missing evidence, and source mismatch.
    - Mark missing source text as `UNRETRIEVABLE`.
 4. Return a compact table.
-   - Include `claim_id`, status, cited source, evidence note, and next action.
+   - Include `claim_id`, verdict, reason code, cited source, evidence note, and next action.
    - Use `NEEDS_EXPERT_REVIEW` when support depends on specialist judgment.
 5. Keep the claim narrow.
    - Do not say the claim is true unless the user asked for a separate fact
@@ -89,8 +97,8 @@ Residual limits:
 For `Claim results`, prefer a table:
 
 ```text
-| claim_id | status | cited source | evidence | next action |
-| --- | --- | --- | --- | --- |
+| claim_id | verdict | reason_code | cited source | evidence | next action |
+| --- | --- | --- | --- | --- | --- |
 ```
 
 ## Safety Rules
@@ -99,8 +107,8 @@ For `Claim results`, prefer a table:
 - Quote only the minimum source text needed for evidence.
 - Do not fabricate page numbers, URLs, titles, authors, or publication details.
 - Do not use private or restricted content in public examples.
-- Do not convert `PARTIAL`, `UNSUPPORTED`, or `UNRETRIEVABLE` into polished
-  prose without warning the user.
+- Do not convert `UNCERTAIN` or `UNSUPPORTED` results into polished prose
+  without warning the user.
 - Use synthetic examples for public demonstrations unless rights and privacy
   have been checked.
 
