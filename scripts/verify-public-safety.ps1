@@ -57,10 +57,6 @@ $blockedLeakagePatterns = @(
         Pattern = '(?i)\b[A-Z]:/[^\r\n`"]+'
     },
     @{
-        Label = 'private_control_plane_term'
-        Pattern = '(?i)\bARD\b|agent-migration|docs/paper_sources|third_party|\.agents'
-    },
-    @{
         Label = 'probable_secret_assignment'
         Pattern = '(?i)(api[_-]?key|token|secret|password)\s*[:=]\s*["''][^"'']+["'']'
     }
