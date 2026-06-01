@@ -1,17 +1,18 @@
 # SourceCheck Tracker
 
-Status: Current repository surface includes a reusable `sourcecheck` skill, a
-deterministic verifier, synthetic fixtures, public eval fixtures, examples,
-documentation, and sanitization checks.
+Status: Current public repository surface includes a reusable `sourcecheck`
+skill, a deterministic verifier, synthetic fixtures, public eval fixtures,
+examples, documentation, and sanitization checks.
 
 ## Current Claim Ceiling
 
-`public_sourcecheck_local_surface_verifier_backed`
+`public_sourcecheck_published_and_verified`
 
 Current evidence can prove that this repository contains the listed public
-surface and that deterministic local checks pass. It does not prove universal
-truth checking, expert review, live web completeness, package registry
-publication, CI coverage, or production runtime safety.
+surface, that deterministic local checks pass, and that the public GitHub
+repository is reachable. It does not prove universal truth checking, expert
+review, live web completeness, package registry publication, CI coverage, or
+production runtime safety.
 
 ## Publication Snapshot
 
@@ -21,6 +22,7 @@ publication, CI coverage, or production runtime safety.
 - license: `MIT`
 - repository model: docs plus installable skill package plus deterministic
   verifier
+- public URL: `https://github.com/marcusliu-dev/sourcecheck-skill`
 - installable skill path: `skills/sourcecheck`
 - examples: synthetic-only
 

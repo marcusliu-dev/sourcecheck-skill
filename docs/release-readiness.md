@@ -1,8 +1,8 @@
 # Release Readiness
 
-Status: Current repository surface includes a reusable SourceCheck skill,
-deterministic verifier, synthetic fixtures, public eval fixtures, documentation,
-and a public-safety verifier.
+Status: Current public repository surface includes a reusable SourceCheck
+skill, deterministic verifier, synthetic fixtures, public eval fixtures,
+documentation, and a public-safety verifier.
 
 ## Current Scope
 
@@ -28,6 +28,8 @@ The current repository surface includes:
 
 The current release claim is narrow and explicit:
 
+- the public repository is reachable at
+  `https://github.com/marcusliu-dev/sourcecheck-skill`;
 - the repository contains an installable SourceCheck skill package;
 - the repository contains a deterministic verifier for synthetic fixtures;
 - the public examples are synthetic-only;
