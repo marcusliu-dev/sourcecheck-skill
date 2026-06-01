@@ -1,0 +1,22 @@
+{
+  "fixture_id": "uncertain",
+  "description": "Synthetic claim where the source is relevant but expert judgment is required.",
+  "sources": [
+    {
+      "id": "src-lab-summary",
+      "title": "Synthetic lab summary",
+      "text": "The prototype reduced median response time in a small internal benchmark. The summary does not establish production reliability."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-expert-001",
+      "text": "The prototype is reliable enough for production use.",
+      "citations": ["src-lab-summary"],
+      "requires_source_id": "src-lab-summary",
+      "requires_expert_review": true,
+      "support_phrases": ["reliable enough for production use"],
+      "expected_status": "NEEDS_EXPERT_REVIEW"
+    }
+  ]
+}

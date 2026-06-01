@@ -1,0 +1,10 @@
+interface:
+  display_name: "SourceCheck"
+  short_description: "Checks whether draft claims are supported by provided sources"
+  default_prompt: >-
+    Use SourceCheck to build a claim ledger and classify each claim as supported,
+    partial, unsupported, misrepresented, source_mismatch, unretrievable, or
+    needs_expert_review against the provided source text only.
+
+policy:
+  allow_implicit_invocation: false

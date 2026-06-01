@@ -1,0 +1,21 @@
+{
+  "fixture_id": "supported",
+  "description": "Synthetic claim where the cited source directly supports the draft claim.",
+  "sources": [
+    {
+      "id": "src-hours",
+      "title": "Synthetic library hours notice",
+      "text": "The demo library opens at 9 a.m. Monday through Friday. On Fridays, the library closes at 6 p.m."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-supported-001",
+      "text": "The demo library closes at 6 p.m. on Fridays.",
+      "citations": ["src-hours"],
+      "requires_source_id": "src-hours",
+      "support_phrases": ["closes at 6 p.m.", "On Fridays"],
+      "expected_status": "SUPPORTED"
+    }
+  ]
+}

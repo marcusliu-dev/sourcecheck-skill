@@ -1,0 +1,26 @@
+{
+  "fixture_id": "source_mismatch",
+  "description": "Synthetic claim where the citation points to the wrong source.",
+  "sources": [
+    {
+      "id": "src-parking",
+      "title": "Synthetic parking note",
+      "text": "Parking is available behind the north building."
+    },
+    {
+      "id": "src-cafe",
+      "title": "Synthetic cafe note",
+      "text": "The cafe serves tea and coffee after 10 a.m."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-mismatch-001",
+      "text": "Parking is available behind the north building.",
+      "citations": ["src-cafe"],
+      "requires_source_id": "src-parking",
+      "support_phrases": ["Parking is available", "north building"],
+      "expected_status": "SOURCE_MISMATCH"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+id: sourcecheck-public-happy-path
+skill: sourcecheck
+type: golden
+description: Checks that SourceCheck classifies a claim only against provided source text.
+prompt: |
+  Use SourceCheck to check this synthetic draft claim.
+
+  Claim: The demo library closes at 6 p.m. on Fridays.
+  Citation: src-hours
+  Source src-hours: The demo library opens at 9 a.m. Monday through Friday. On Fridays, the library closes at 6 p.m.
+expected_behavior:
+  - Builds a claim ledger with a stable claim id.
+  - Uses only the provided source text.
+  - Marks the claim as SUPPORTED.
+  - Explains the evidence without claiming universal truth.
+pass_conditions:
+  - Includes SUPPORTED.
+  - Mentions provided source text or cited source evidence.
+  - Does not claim complete fact-checking or expert review.
+failure_conditions:
+  - Uses outside sources.
+  - Claims the statement is true in the world rather than supported by the source.
+  - Omits the claim status.

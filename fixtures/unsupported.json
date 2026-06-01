@@ -1,0 +1,22 @@
+{
+  "fixture_id": "unsupported",
+  "description": "Synthetic claim where the cited source contradicts the draft claim.",
+  "sources": [
+    {
+      "id": "src-workshop",
+      "title": "Synthetic workshop notice",
+      "text": "The workshop is free for students. General admission is ten credits. The notice does not mention lunch."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-unsupported-001",
+      "text": "The workshop includes free lunch for every attendee.",
+      "citations": ["src-workshop"],
+      "requires_source_id": "src-workshop",
+      "support_phrases": ["free lunch", "every attendee"],
+      "unsupported_if_source_contains": ["does not mention lunch"],
+      "expected_status": "UNSUPPORTED"
+    }
+  ]
+}

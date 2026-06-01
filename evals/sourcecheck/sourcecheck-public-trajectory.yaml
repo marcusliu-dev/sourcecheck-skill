@@ -1,0 +1,23 @@
+id: sourcecheck-public-trajectory
+skill: sourcecheck
+type: trajectory
+description: Checks that SourceCheck follows the required intermediate steps before giving a status.
+prompt: |
+  SourceCheck this synthetic draft:
+
+  Claim A: Parking is available behind the north building.
+  Citation: src-cafe
+  Source src-parking: Parking is available behind the north building.
+  Source src-cafe: The cafe serves tea and coffee after 10 a.m.
+trajectory_requirements:
+  - Identifies the claim and citation id.
+  - Checks whether the cited source is the right source for the claim.
+  - Separates source mismatch from unsupported content.
+  - Returns SOURCE_MISMATCH for Claim A.
+allowed_verification_examples:
+  - Compare the citation id with the source that actually contains the support phrase.
+  - Explain that the cited cafe source does not support the parking claim.
+failure_conditions:
+  - Marks Claim A as SUPPORTED because another provided source supports it.
+  - Ignores the citation id.
+  - Uses outside search.
